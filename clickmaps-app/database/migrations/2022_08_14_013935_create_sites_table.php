@@ -16,8 +16,10 @@ class CreateSitesTable extends Migration
         Schema::create('sites', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->integer('user_id')->unsigned()->index();
             $table->string('name', 100);
             $table->string('url', 100);
+
         });
     }
 

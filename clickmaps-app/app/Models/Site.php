@@ -18,4 +18,9 @@ class Site extends Model
     {
         return $this->hasMany(Clickmap::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
