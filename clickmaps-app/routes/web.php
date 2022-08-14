@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\ClickmapController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +19,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/sites', 'SiteController@index');
-Route::post('/site', 'SiteController@store');
-Route::delete('/site/{site}', 'SiteController@destroy');
+Route::get('/sites', [SiteController::class,'index']);
+Route::post('/site', [SiteController::class,'store']);
+Route::delete('/site/{site}', [SiteController::class,'destroy']);
 
-Route::get('/clickmaps', 'ClickmapController@index');
-Route::post('/clickmap', 'ClickmapController@store');
-Route::delete('/clickmap/{clickmap}', 'ClickmapController@destroy');
+Route::get('/clickmaps', [ClickmapController::class,'index']);
+Route::post('/clickmap', [ClickmapController::class,'store']);
+Route::delete('/clickmap/{clickmap}', [ClickmapController::class,'destroy']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
