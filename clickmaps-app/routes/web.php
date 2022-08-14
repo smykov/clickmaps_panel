@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/sites', 'SiteController@index');
+Route::post('/site', 'SiteController@store');
+Route::delete('/site/{site}', 'SiteController@destroy');
+
+Route::get('/clickmaps', 'ClickmapController@index');
+Route::post('/clickmap', 'ClickmapController@store');
+Route::delete('/clickmap/{clickmap}', 'ClickmapController@destroy');
