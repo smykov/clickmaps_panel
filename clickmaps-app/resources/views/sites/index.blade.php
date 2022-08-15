@@ -6,11 +6,21 @@
 
     <!-- Bootstrap шаблон... -->
 
-    <div class="panel-body">
+    <div class="panel-body p-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('/') }}">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Сайты</li>
+            </ol>
+        </nav>
         <!-- Отображение ошибок проверки ввода -->
         @include('common.errors')
 
         <!-- Форма нового сайта -->
+
+        <h2 class="panel-heading">
+            Добавить сайт
+        </h2>
         <form action="{{ url('site') }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
 
@@ -30,11 +40,11 @@
                     <input type="text" name="url" id="url-name" class="form-control">
                 </div>
             </div>
-
+            <br/>
             <!-- Кнопка добавления сайта -->
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
-                    <button type="submit" class="btn btn-default">
+                    <button type="submit" class="btn btn-primary">
                         <i class="fa fa-plus"></i> Добавить сайт
                     </button>
                 </div>
@@ -44,10 +54,10 @@
 
     <!-- Список сайтов -->
     @if (count($sites) > 0)
-        <div class="panel panel-default">
-            <div class="panel-heading">
+        <div class="panel panel-default p-3">
+            <h2 class="panel-heading">
                 Сайты пользователя
-            </div>
+            </h2>
 
             <div class="panel-body">
                 <table class="table table-striped task-table">
@@ -57,6 +67,7 @@
                     <tr>
                         <th>Site</th>
                         <th>Url</th>
+                        <th>&nbsp;</th>
                         <th>&nbsp;</th>
                     </tr>
                     </thead>
@@ -73,7 +84,9 @@
                             <td class="table-text">
                                 <div>{{ $site->url }}</div>
                             </td>
-
+                            <td>
+                                <div><a href="{{ url('site/'.$site->id) }}">Статистика</a></div>
+                            </td>
                             <td>
                                 <form action="{{ url('site/'.$site->id) }}" method="POST">
                                     {{ csrf_field() }}

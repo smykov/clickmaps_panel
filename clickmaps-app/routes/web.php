@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
-use App\Http\Controllers\ClickmapController;
 use App\Http\Controllers\HomeController;
 
 /*
@@ -21,13 +20,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/sites', [SiteController::class,'index']);
-Route::post('/site', [SiteController::class,'store']);
-Route::delete('/site/{site}', [SiteController::class,'destroy']);
+Route::get('/sites', [SiteController::class, 'index']);
+Route::post('/site', [SiteController::class, 'store']);
+Route::delete('/site/{site}', [SiteController::class, 'destroy']);
+Route::get('/site/{site}', [SiteController::class, 'view']);
+Route::get('/site/{site}/chart', [SiteController::class, 'chart']);
 
-Route::get('/clickmaps', [ClickmapController::class,'index']);
-Route::post('/clickmap', [ClickmapController::class,'store']);
-Route::delete('/clickmap/{clickmap}', [ClickmapController::class,'destroy']);
 
 Auth::routes();
 

@@ -6,8 +6,9 @@ use App\Models\Site;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class SiteController extends Controller
@@ -52,6 +53,41 @@ class SiteController extends Controller
         ]);
 
         return redirect('/sites');
+    }
+
+    /**
+     * Детальная сайта (Статистика).
+     *
+     * @param Request $request
+     * @param Site $site
+     * @return View
+     */
+    public function view(Request $request, Site $site): View
+    {
+        $clicks = $site->clickmaps()->get();
+
+        return view('sites.view', [
+            'site' => $site
+        ]);
+    }
+
+    /**
+     * JSON для построения графика
+     *
+     * @param Request $request
+     * @param Site $site
+     * @return JsonResponse
+     */
+    public function chart(Request $request, Site $site): JsonResponse
+    {
+        $result = DB::table('clickmaps')
+            ->selectRaw("count(id) as `Data`, DATE_FORMAT(`clicked_at`, '%H:00') as `Labels`")
+            ->where('site_id', '=', $site->id)
+            ->groupBy('Labels')
+            ->orderBy('Labels', 'ASC')
+            ->get();
+
+        return response()->json($result);
     }
 
     /**
