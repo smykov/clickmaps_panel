@@ -45,11 +45,13 @@ class SiteController extends Controller
         $this->validate($request, [
             'name' => 'required|max:255',
             'url' => 'required|max:255',
+            'token' => 'required|max:64',
         ]);
 
         $request->user()->sites()->create([
             'name' => $request->name,
             'url' => $request->url,
+            'token' => base64_encode($request->url)
         ]);
 
         return redirect('/sites');

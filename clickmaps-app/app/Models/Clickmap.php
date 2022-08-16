@@ -16,6 +16,12 @@ class Clickmap extends Model
         'clicked_at',
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
+
     public function site()
     {
         return $this->belongsTo(Site::class);
